@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#f8fafc" />
+    <meta name="theme-color" content="#008069" />
     <meta name="description" content="Phòng chat giao việc Enteesee — tag ai thì người đó nhận được và phản hồi nhanh." />
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./icon-192.png" />
@@ -13,24 +13,24 @@
          hoặc CSS chưa về thì màn hình vẫn là nền sáng/tối rõ ràng + chữ
          nhìn thấy được, KHÔNG BAO GIỜ là khoảng đen trơ trọi (lỗi 25/11). */
       html, body { margin: 0; padding: 0; height: 100%; }
-      body { background: #eef1f5; color: #1a2027; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-      html[data-theme="dark"] body { background: #0b0f14; color: #f2f5f8; }
+      body { background: #efeae2; color: #111b21; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+      html[data-theme="dark"] body { background: #0b141a; color: #e9edef; }
       #boot-fallback { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 24px; text-align: center; box-sizing: border-box; }
-      #boot-fallback .boot-logo { width: 56px; height: 56px; border-radius: 50%; background: #007aff; color: #fff; font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+      #boot-fallback .boot-logo { width: 56px; height: 56px; border-radius: 50%; background: #008069; color: #fff; font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
       #boot-fallback .boot-title { font-size: 18px; font-weight: 700; }
       #boot-fallback .boot-text { font-size: 15px; opacity: .75; }
       #boot-fallback .boot-sub { font-size: 13px; opacity: .55; }
       #boot-error { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; text-align: center; box-sizing: border-box; }
       #boot-error .boot-title { font-size: 18px; font-weight: 700; }
       #boot-error .boot-text { font-size: 15px; opacity: .8; max-width: 340px; line-height: 1.5; }
-      #boot-error button { min-height: 44px; padding: 10px 22px; border: none; border-radius: 999px; background: #007aff; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; }
+      #boot-error button { min-height: 44px; padding: 10px 22px; border: none; border-radius: 999px; background: #008069; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; }
     </style>
     <script>
       /* Áp theme ngay từ đầu để không chớp sáng trước khi JS tải xong (khớp lib/theme.js). */
       try { var t = localStorage.getItem("enteesee-theme"); if (t !== "dark" && t !== "light") t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; document.documentElement.dataset.theme = t; } catch (e) {}
     </script>
-    <script type="module" crossorigin src="/enteesee-workspace/assets/index-B9ORgWm8.js"></script>
-    <link rel="stylesheet" crossorigin href="/enteesee-workspace/assets/index-BRIcaQ_M.css">
+    <script type="module" crossorigin src="/enteesee-workspace/assets/index-DV-HiE0F.js"></script>
+    <link rel="stylesheet" crossorigin href="/enteesee-workspace/assets/index-doHbl4b9.css">
   <link rel="manifest" href="/enteesee-workspace/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/enteesee-workspace/registerSW.js"></script></head>
   <body>
     <div id="root">
