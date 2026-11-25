@@ -8,14 +8,65 @@
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./icon-192.png" />
     <title>Enteesee — Phòng giao việc</title>
+    <style>
+      /* Nền + fallback boot KHÔNG phụ thuộc file CSS bundle: nếu JS chết
+         hoặc CSS chưa về thì màn hình vẫn là nền sáng/tối rõ ràng + chữ
+         nhìn thấy được, KHÔNG BAO GIỜ là khoảng đen trơ trọi (lỗi 25/11). */
+      html, body { margin: 0; padding: 0; height: 100%; }
+      body { background: #eef1f5; color: #1a2027; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+      html[data-theme="dark"] body { background: #0b0f14; color: #f2f5f8; }
+      #boot-fallback { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 24px; text-align: center; box-sizing: border-box; }
+      #boot-fallback .boot-logo { width: 56px; height: 56px; border-radius: 50%; background: #007aff; color: #fff; font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+      #boot-fallback .boot-title { font-size: 18px; font-weight: 700; }
+      #boot-fallback .boot-text { font-size: 15px; opacity: .75; }
+      #boot-fallback .boot-sub { font-size: 13px; opacity: .55; }
+      #boot-error { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; text-align: center; box-sizing: border-box; }
+      #boot-error .boot-title { font-size: 18px; font-weight: 700; }
+      #boot-error .boot-text { font-size: 15px; opacity: .8; max-width: 340px; line-height: 1.5; }
+      #boot-error button { min-height: 44px; padding: 10px 22px; border: none; border-radius: 999px; background: #007aff; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; }
+    </style>
     <script>
       /* Áp theme ngay từ đầu để không chớp sáng trước khi JS tải xong (khớp lib/theme.js). */
       try { var t = localStorage.getItem("enteesee-theme"); if (t !== "dark" && t !== "light") t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; document.documentElement.dataset.theme = t; } catch (e) {}
     </script>
-    <script type="module" crossorigin src="/enteesee-workspace/assets/index-e6uPRwj4.js"></script>
+    <script type="module" crossorigin src="/enteesee-workspace/assets/index-Cpvi0kN5.js"></script>
     <link rel="stylesheet" crossorigin href="/enteesee-workspace/assets/index-BDPLicCV.css">
   <link rel="manifest" href="/enteesee-workspace/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/enteesee-workspace/registerSW.js"></script></head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Nội dung chờ tĩnh: React mount xong sẽ thay toàn bộ nội dung này.
+           JS có chết thì người dùng vẫn thấy chữ, không phải màn hình đen. -->
+      <div id="boot-fallback">
+        <div class="boot-logo">E</div>
+        <div class="boot-title">Enteesee</div>
+        <div class="boot-text">Đang tải phòng chat…</div>
+        <div class="boot-sub">Nếu màn hình này đứng yên quá lâu, hãy tải lại trang.</div>
+      </div>
+    </div>
+    <script>
+      /* Watchdog boot: React không mount (file JS/CSS tải lỗi, JS lỗi lúc
+         chạy) thì sau 12s hiện lỗi rõ ràng + nút tải lại, thay vì để màn
+         hình đen/trống. React mount xong (App.jsx đặt
+         window.__enteesee_mounted) hoặc ErrorBoundary bắt được lỗi thì
+         watchdog dừng — không ghi đè khung lỗi của boundary. */
+      window.__enteesee_bootError = function (msg) {
+        if (window.__enteesee_mounted) return;
+        var root = document.getElementById('root');
+        if (!root || document.getElementById('boot-error')) return;
+        root.innerHTML = '<div id="boot-error"><div class="boot-title">Không mở được phòng chat</div>'
+          + '<div class="boot-text">' + msg + '</div>'
+          + '<button type="button" onclick="window.location.reload()">Tải lại trang</button></div>';
+      };
+      window.addEventListener('error', function (e) {
+        if (e && e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
+          window.__enteesee_bootError('Không tải được file của phòng chat. Kiểm tra mạng rồi bấm tải lại.');
+        }
+      }, true);
+      setTimeout(function () {
+        if (!window.__enteesee_mounted) {
+          window.__enteesee_bootError('Phòng chat tải quá lâu hoặc gặp lỗi khi mở. Bấm để tải lại trang.');
+        }
+      }, 12000);
+    </script>
   </body>
 </html>
