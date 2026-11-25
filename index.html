@@ -7,6 +7,10 @@
     <meta name="description" content="Phòng chat giao việc Enteesee — tag ai thì người đó nhận được và phản hồi nhanh." />
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./icon-192.png" />
+    <!-- Mở kết nối tới API sớm (DNS + TLS bắt tay trước cả khi bundle JS
+      tải xong) — mẹo Gemini, tiết kiệm ~150–350ms mỗi lần mở phòng. -->
+    <link rel="dns-prefetch" href="//enteesee-api.vnhairmarket.com" />
+    <link rel="preconnect" href="https://enteesee-api.vnhairmarket.com" crossorigin />
     <title>Enteesee — Phòng giao việc</title>
     <style>
       /* Nền + fallback boot KHÔNG phụ thuộc file CSS bundle: nếu JS chết
@@ -29,7 +33,7 @@
       /* Áp theme ngay từ đầu để không chớp sáng trước khi JS tải xong (khớp lib/theme.js). */
       try { var t = localStorage.getItem("enteesee-theme"); if (t !== "dark" && t !== "light") t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; document.documentElement.dataset.theme = t; } catch (e) {}
     </script>
-    <script type="module" crossorigin src="/enteesee-workspace/assets/index-NpNG-Pii.js"></script>
+    <script type="module" crossorigin src="/enteesee-workspace/assets/index-BcO_7dZm.js"></script>
     <link rel="stylesheet" crossorigin href="/enteesee-workspace/assets/index-DjSx3Iel.css">
   <link rel="manifest" href="/enteesee-workspace/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/enteesee-workspace/registerSW.js"></script></head>
   <body>
